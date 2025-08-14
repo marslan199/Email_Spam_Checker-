@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 # Load the dataset
 df = pd.read_csv("emails.csv")
@@ -35,3 +36,10 @@ print(df.columns)
 # df.to_csv('emails.csv' , index=False)
 
 print(high_spam[["spam_score","label"]])
+# as first we drop output colum from out dataframe
+X = df.drop(columns=["label"])
+y = df["label"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
